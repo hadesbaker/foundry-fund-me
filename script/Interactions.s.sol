@@ -26,7 +26,7 @@ contract FundFundMe is Script {
     }
 }
 
-/// WITHDRAWING ///
+// WITHDRAWING ///
 
 contract WithdrawFundMe is Script {
     function withdrawFundMe(address mostRecentlyDeployed) public {

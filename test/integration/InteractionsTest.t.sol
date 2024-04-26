@@ -19,13 +19,9 @@ contract InteractionsTest is StdCheats, Test {
 
     address public constant USER = address(1);
 
-    // uint256 public constant SEND_VALUE = 1e18;
-    // uint256 public constant SEND_VALUE = 1_000_000_000_000_000_000;
-    // uint256 public constant SEND_VALUE = 1000000000000000000;
-
     function setUp() external {
         DeployFundMe deployer = new DeployFundMe();
-        fundMe = deployer.run();
+        (fundMe, helperConfig) = deployer.run();
         vm.deal(USER, STARTING_USER_BALANCE);
     }
 

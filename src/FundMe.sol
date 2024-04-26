@@ -51,53 +51,51 @@ contract FundMe {
             s_addressToAmountFunded[funder] = 0;
         }
         s_funders = new address[](0);
-        // // transfer
+        // Transfer vs call vs Send
         // payable(msg.sender).transfer(address(this).balance);
-
-        // // send
-        // bool sendSuccess = payable(msg.sender).send(address(this).balance);
-        // require(sendSuccess, "Send failed");
-
-        // call
-        (bool callSuccess, ) = payable(msg.sender).call{
-            value: address(this).balance
-        }("");
-        require(callSuccess, "Call failed");
+        (bool success, ) = i_owner.call{value: address(this).balance}("");
+        require(success);
     }
 
     function cheaperWithdraw() public onlyOwner {
-        uint256 fundersLength = s_funders.length;
+        address[] memory funders = s_funders;
+        // mappings can't be in memory, sorry!
         for (
-            uint256 fundersIndex = 0;
-            fundersIndex < fundersLength;
-            fundersIndex++
+            uint256 funderIndex = 0;
+            funderIndex < funders.length;
+            funderIndex++
         ) {
-            address funder = s_funders[fundersIndex];
+            address funder = funders[funderIndex];
             s_addressToAmountFunded[funder] = 0;
         }
         s_funders = new address[](0);
-        (bool callSuccess, ) = payable(msg.sender).call{
-            value: address(this).balance
-        }("");
-        require(callSuccess, "Call failed");
+        // payable(msg.sender).transfer(address(this).balance);
+        (bool success, ) = i_owner.call{value: address(this).balance}("");
+        require(success);
     }
+
+    // GETTER FUNCTIONS ///
 
     function getAddressToAmountFunded(
         address fundingAddress
-    ) external view returns (uint256) {
+    ) public view returns (uint256) {
         return s_addressToAmountFunded[fundingAddress];
-    }
-
-    function getFunder(uint256 index) external view returns (address) {
-        return s_funders[index];
-    }
-
-    function getOwner() external view returns (address) {
-        return i_owner;
     }
 
     function getVersion() public view returns (uint256) {
         return s_priceFeed.version();
+    }
+
+    function getFunder(uint256 index) public view returns (address) {
+        return s_funders[index];
+    }
+
+    function getOwner() public view returns (address) {
+        return i_owner;
+    }
+
+    function getPriceFeed() public view returns (AggregatorV3Interface) {
+        return s_priceFeed;
     }
 
     /// SPECIAL FUNCTIONS ///
