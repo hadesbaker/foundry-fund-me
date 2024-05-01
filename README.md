@@ -28,13 +28,12 @@ cd foundry-fund-me
 forge build
 ```
 
-
 # Usage
 
 ## Deploy:
 
 ```
-forge script script/DeployFundMe.s.sol
+forge script script/DeployFundMe.s.sol --rpc-url $SEPOLIA_RPC_URL --private-key $PRIVATE_KEY --broadcast --legacy
 ```
 
 ## Testing
@@ -47,7 +46,6 @@ forge test
 or 
 
 ```
-// Only run test functions matching the specified regex pattern.
 
 forge test --mt testFunctionName
 ```
