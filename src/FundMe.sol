@@ -4,25 +4,37 @@ pragma solidity ^0.8.18;
 import {AggregatorV3Interface} from "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 import {PriceConverter} from "./PriceConverter.sol";
 
-error FundMe_NotOwner();
+/**
+ * @title A Decentralized Funding & Withdrawing Application
+ * @author Taki Baker Alyasri
+ * @notice This contract is for funding and withdrawing Eth
+ * @dev This contract uses the PriceConverter library to convert values
+ */
 
 contract FundMe {
     using PriceConverter for uint256;
 
+    /// ERRORS ///
+    error FundMe_NotOwner();
+
+    /// STORAGE VARIABLES ///
     mapping(address => uint256) private s_addressToAmountFunded;
     address[] private s_funders;
-
-    address private immutable i_owner;
-    uint256 public constant MINIMUM_USD = 5e18;
     AggregatorV3Interface private s_priceFeed;
 
+    /// IMMUTABLE VARIABLES ///
+    address private immutable i_owner;
+
+    /// STATE VARIABLES ///
+    uint256 public constant MINIMUM_USD = 5e18;
+
+    /// CONSTRUCTOR ///
     constructor(address priceFeed) {
         i_owner = msg.sender;
         s_priceFeed = AggregatorV3Interface(priceFeed);
     }
 
     /// MODS ///
-
     modifier onlyOwner() {
         // require(msg.sender == owner);
         if (msg.sender != i_owner) revert FundMe_NotOwner();
@@ -30,7 +42,6 @@ contract FundMe {
     }
 
     /// FUNCTIONS ///
-
     function fund() public payable {
         require(
             msg.value.getConversionRate(s_priceFeed) >= MINIMUM_USD,
@@ -75,7 +86,6 @@ contract FundMe {
     }
 
     // GETTER FUNCTIONS ///
-
     function getAddressToAmountFunded(
         address fundingAddress
     ) public view returns (uint256) {
