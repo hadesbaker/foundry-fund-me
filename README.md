@@ -2,7 +2,7 @@
 
 Foundry Fund Me is a blockchain development project written in solidity. This project uses the foundry framework to demonstrate the basic concepts of funding and withdrawing a smart contract as well as testing, deploying, and interacting with the contract via the foundry forge, cast, and anvil tools.
 
-by Taki Baker
+by Taki Baker Alyasri
 
 - GitHub: [hadesbaker](https://www.github.com/hadesbaker)
 - Twitter: [hadesbaker](https://www.twitter.com/hadesbaker)
