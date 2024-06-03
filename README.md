@@ -30,11 +30,22 @@ forge build
 
 # Usage
 
-## Deploy:
+## Start a local node
 
 ```
-forge script script/DeployFundMe.s.sol --rpc-url $SEPOLIA_RPC_URL --private-key $PRIVATE_KEY --broadcast --legacy
+anvil
 ```
+
+## Deploy:
+
+This will default to your local node. You need to have it running in another terminal in order for it to deploy.
+
+```
+forge script script/DeployFundMe.s.sol --rpc-url http://localhost:8545 --private-key 0xdbda1821b80551c9d65939329250298aa3472ba22feea921c0cf5d620ea67b97 --broadcast
+```
+## Deploy - Other Network
+
+[See below](#deployment-to-a-testnet-or-mainnet)
 
 ## Testing
 

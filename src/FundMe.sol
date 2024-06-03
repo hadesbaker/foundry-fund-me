@@ -8,7 +8,7 @@ import {PriceConverter} from "./PriceConverter.sol";
  * @title A Decentralized Funding & Withdrawing Application
  * @author Taki Baker Alyasri
  * @notice This contract is for funding and withdrawing Eth
- * @dev This contract uses the PriceConverter library to convert values
+ * @dev This contract uses the PriceConverter library to convert values and is deployed via the DeployFundMe.s.sol script.
  */
 
 contract FundMe {
