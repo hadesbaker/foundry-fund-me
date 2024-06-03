@@ -13,8 +13,6 @@ docs/
 # Dotenv file
 .env
 
-# Makefile
-Makefile
 
 broadcast/
 lib/
